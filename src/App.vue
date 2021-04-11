@@ -1,19 +1,23 @@
 <template>
   <div id="app" ref="app">
-    <Name/>
-    <div class="bg"/>
-    <MENU />
-     <transition v-for="(item, i) in $slices" :key="i">
-      <component :is="item.type.toUpperCase()" 
-      :idx="i" 
-      :appHeight="appHeight"
-      :data="item.data.body"
-      ref="work"
-      @work="handleWorkInfo"/>
-    </transition>
-    <div class="footer">
-      </div>
+    <div class="view" :style="`height: ${$view}vh`">
+      <Name/>
+      <div :class="`bg ${doHoriz ? `active` : ``}` "/>
+      <MENU />
+      <transition v-for="(item, i) in $slices" :key="i">
+        <component :is="item.type.toUpperCase()" 
+        :idx="i" 
+        :appHeight="appHeight"
+        :data="item.data.body"
+        ref="work"
+        :class="`${doHoriz ? `active` : ``}`"
+        @work="handleWorkInfo"/>
+      </transition>
+      <div class="footer">
+        </div>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -28,6 +32,31 @@ export default {
     WORK,
     Name
   },
+  watch: {
+    doHoriz: {
+      handler() {
+        if (!this.doHoriz) {
+          if (this.dir === "down" && this.active === this.$slices.length) {
+            this.active = this.$slices.length - 1;
+            return;
+          }
+
+          if (this.dir === "down") {
+            this.active = Math.max(Math.min((this.active + 1), this.$slices.length - 1) , 0);
+          }
+          if (this.dir === "up") {
+              this.active = Math.max(Math.min((this.active - 1), this.$slices.length - 1), 0);
+          }
+        }
+        
+        
+        // console.log("doHoriz:", e, " dir:", this.dir, " active:", this.active)
+        
+      } 
+    }
+  },
+  props: {
+  },
   methods: {
     handleWorkInfo(i) {
       this.workInfo.push(i);
@@ -35,32 +64,42 @@ export default {
     scroll() {
       window.addEventListener("mousewheel",this.handleScroll, {passive:false})
     },
+    isOutLeftLimit() {
+      return this.horizPos[this.active] === 0 && this.dir === "up";
+    },
+    isOutRightLimit() {
+      return this.horizPos[this.active] + (window.innerWidth / 2) >= this.boxWidth && this.dir === "down";
+    },
+    isWithinTopLimit() {
+      return this.pos >= this.stopLimit - 20 && this.dir === "down";
+    },
+    isWithinBottomLimit() {
+      return this.pos <= this.stopLimit + 20 && this.dir === "up";
+    },
     handleScroll(e) {
       this.activeWork = this.$refs.work[this.active].$el;
-      // var dir = e.deltaY > 0 ? "down" : "up";
-      var pos = window.scrollY;
-      var stopLimit = this.workInfo[this.active].stopLimit;
-      var boxWidth = this.workInfo[this.active].boxWidth;
-      this.activeWork.style.width = boxWidth;
-      // var horizLimit = this.horizPos + (window.innerWidth / 2);
-      console.log(pos);
-      if (pos >= stopLimit) {
-        //  Stop Vertical Scroll
-         if ((this.horizPos[this.active] > 0 && this.horizPos[this.active] <= boxWidth) && (this.horizPos[this.active] + (window.innerWidth / 2)) <= boxWidth) {
-            e.preventDefault();
-        }
+      this.dir = e.deltaY > 0 ? "down" : "up";
+      this.pos = window.scrollY;
+      this.stopLimit = this.workInfo[this.active].stopLimit;
 
-        // At the end leaving
-        if ((this.horizPos[this.active] + (window.innerWidth / 2)) >= boxWidth) {
-          this.active += 1;
-          return;
-        }
+      this.boxWidth = this.workInfo[this.active].boxWidth;
+      this.activeWork.style.width =  this.boxWidth;
 
-        window.scrollTo(0, stopLimit);
-        this.horizPos[this.active] = Math.max((this.horizPos[this.active] + e.deltaY), 0);
-        this.activeWork.style = `transform: translateX(-${this.horizPos[this.active]}px)`;
+
+
+        if ((this.isWithinTopLimit() || this.isWithinBottomLimit()) && (!this.isOutLeftLimit() && !this.isOutRightLimit())) {
+          this.doHoriz = true;
+        } else {
+          this.doHoriz = false;
+        }
+        if (this.doHoriz) {
+          e.preventDefault();
+          window.scrollTo(0, this.stopLimit);
+          this.horizPos[this.active] = Math.max((this.horizPos[this.active] + e.deltaY), 0);
+          this.activeWork.children[0].style = `transform: translateX(-${this.horizPos[this.active]}px)`;
+        }
         
-      }
+        
     }
   },
   data() {
@@ -69,22 +108,25 @@ export default {
       appHeight: 0,
       active: 0,
       workInfo: [],
-      horizPos: [0, 0],
-      activeWork: null
+      horizPos: [],
+      activeWork: null,
+      doHoriz: false
     }
   },
 
   mounted() {
-    window.scrollTo(0, 0);
     if (window.location.href.split('#')[1]) {
       window.location.href = "/";
     }
+    for (let i = 0; i < this.$slices.length; i++) {
+      this.horizPos.push(0);
+    }
+    window.scrollTo(0, 0);
+
     this.$nextTick(() => {
       this.$nextTick(() => {
-        // console.log(this.$refs.app.getBoundingClientRect().height - window.innerHeight);
         this.scroll();
         this.appHeight = Math.floor(this.$refs.app.getBoundingClientRect().height);
-        // console.log(window.innerHeight);
       })
     })
   }
@@ -92,6 +134,9 @@ export default {
 </script>
 
 <style lang="scss">
+.view {
+  overflow: hidden;
+}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -117,6 +162,7 @@ html {
 .bg {
   // background-image: url("./assets/BG_2021.gif");
   background: black;
+  transition: background-color 1s ease;
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
@@ -134,10 +180,7 @@ body {
 }
 p {
   font-size: 24px;
-}
-.active {
-  height: 100%;
-  transition: height 1s ease;
+  mix-blend-mode: difference;
 }
 .inactive {
   height: 0 !important;
@@ -146,4 +189,14 @@ p {
 .footer {
   height: 50vh;
 }
+.workpage {
+  background-color: black;
+  transition: background-color 1s ease;
+  z-index: -2;
+}
+// .active, .active .wrap {
+//   background-color: white;
+//   transition: background-color 1s ease;
+// }
+
 </style>

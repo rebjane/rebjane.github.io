@@ -1,6 +1,6 @@
 <template>
   <div :id="`workpage-${idx}`" ref="workpage" class="workpage">
-    <h2 class="title" ref="title">Work</h2>
+    <!-- <h2 class="title" ref="title">Work</h2> -->
 
     <div v-if="data" class="wrap" ref="work">
       <transition v-for="(item, i) in data" :key="i">
@@ -50,9 +50,10 @@ export default {
     this.$nextTick(() => {
       this.calculBoxWidth();
       this.stopLimit = Math.floor(this.$refs.work.getBoundingClientRect().top - ((window.innerHeight - this.$refs.work.getBoundingClientRect().height) / 2));
-      
-      console.log("stopLimit", this.stopLimit);
-      this.$emit("work", {boxWidth: this.boxWidth, stopLimit: this.stopLimit, idx: this.idx})
+      var stopTop = this.$refs.work.getBoundingClientRect().top;
+      var stopBottom = this.$refs.work.getBoundingClientRect().bottom;
+      this.$refs.workpage.style.width = this.boxWidth;
+      this.$emit("work", {boxWidth: this.boxWidth, stopLimit: this.stopLimit, idx: this.idx, stopTop: stopTop, stopBottom: stopBottom,})
     })
   }
 }
@@ -75,7 +76,7 @@ export default {
   display: flex;
   align-items: stretch;
   flex-direction: row;
-  margin-bottom: auto;
+  margin: auto;
 
 }
 img {

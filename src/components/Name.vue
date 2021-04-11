@@ -50,8 +50,8 @@ export default {
       }
   },
   mounted() {
-    this.name();
-    this.outlines();
+    // this.name();
+    // this.outlines();
   }
 }
 </script>

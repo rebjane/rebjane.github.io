@@ -191,6 +191,7 @@ li {
   width: 100%;
   mix-blend-mode: difference;
   top: 0;
+  z-index: 10;
   // background: white;
 }
 .header-inner {
