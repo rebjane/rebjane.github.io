@@ -7,6 +7,8 @@ export default new class Prismic {
             pr.api("https://rebj2021.cdn.prismic.io/api/v2").then((api) => {
                 return api.query("", { pageSize: 100 });
             }).then((res) => {
+                console.log();
+                Vue.prototype.$slices = res.results.filter(i => i.type === "work").sort((a, b) => a.data.order - b.data.order);
                 var menu = fetchSlice("menu", res.results);
                 Vue.prototype.$work = fetchSlice("work", res.results);
                 Vue.prototype.$cats = [];

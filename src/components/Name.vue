@@ -8,11 +8,12 @@
                     </span>
                 </span>
             </h1>
+            
+            </div>
             <div class="blurb">
                 <p>
                     Rebecca is an Illustration Artist and Designer from Toronto.
                 </p>
-                </div>
             </div>
     </div> 
         
@@ -61,7 +62,7 @@ export default {
     height: 100vh;
 }
 h1 {
-    font-size: 120px;
+    font-size: 18vw;
     margin: 0;
     height: 50px;
 }
@@ -76,6 +77,7 @@ h1 {
 }
 .name-wrapper {
     transform: translateY(20%);
+    mix-blend-mode: difference;
 }
 .blurb {
     width: 25%;

@@ -23,7 +23,7 @@ import Reb from "./Reb.vue";
 export default {
   name: 'Header',
   props: {
-    scrollPosY: Number
+    scrollPosY: Object
   },
   components: {
     Reb
@@ -71,8 +71,8 @@ export default {
     },
     updateTime() {
         var time = new Date().toString().split(" ")[4].split(":");
-        var AMorPM = time[0] > 12 ? "PM" : "AM";
-        this.time = `${Math.abs(12 - time[0])}:${time[1]} ${AMorPM}`;
+        var AMorPM = time[0] > 12 ? {mode: "PM", denom: 12} : {mode: "AM", denom: 0};
+        this.time = `${Math.abs(AMorPM.denom - time[0])}:${time[1]} ${AMorPM.mode}`;
     },
     getDate() {
       this.updateTime();
