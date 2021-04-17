@@ -100,7 +100,7 @@ h1 {
 .outline {
     -webkit-text-fill-color: rgb(0,0,0,0);
     -webkit-text-stroke-color: white;
-    -webkit-text-stroke-width: .5px;
+    -webkit-text-stroke-width: .5px; 
 }
 .name-wrapper {
     transform: translateY(20%);
