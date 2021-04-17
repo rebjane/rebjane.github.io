@@ -19,8 +19,6 @@
 
 <script>
 import { TimelineMax } from "gsap";
-import { CSSPlugin } from 'gsap/CSSPlugin';
-TimelineMax.registerPlugin(CSSPlugin);
 export default {
   name: 'Name',
   props: {
