@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { TimelineMax } from "gsap";
+import { gsap } from "gsap";
+
 export default {
   name: 'Name',
   props: {
@@ -35,7 +36,7 @@ export default {
   },
   data() {
     return {
-        timeline: new TimelineMax({ repeat: -1 , yoyo:true}),
+        timeline: gsap.timeline({ repeat: -1 , yoyo:true}),
         tls: []
     }
   },
@@ -47,7 +48,7 @@ export default {
       outlines() {
           for (let i = 0; i < 4; i++) {
           var name = this.$refs[`outline-${i}`][0];
-              this.tls[i] = new TimelineMax({ repeat: -1});
+              this.tls[i] = new gsap.timeline({ repeat: -1 , yoyo:true});
               this.tls[i].delay((1 / 12) * i);
               this.tls[i].to(name, {opacity: 0, duration: 0, delay: 0})
               .to(name, {opacity: 1, duration: 1, delay: .5})
