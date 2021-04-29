@@ -3,12 +3,14 @@
     <div v-if="data.body" class="wrap" ref="work">
     <h2 class="mobileheader">{{$text(data.id)}}</h2>
       <transition v-for="(item, i) in data.body" :key="i">
+        <router-link :to="slugify($text(item.primary.title), item)">
         <div class="item" ref="item" :key="wh" :style="imageSize(item)">
           <div class="item-inner" ref="item_inner" :style="parallax">
           <img class="img2" ref="img" :key="wh" :style="imageSize(item)"/>
           <p class="title" v-if="item.primary.title.length">{{$text(item.primary.title)}}</p>
         </div>
        </div>
+        </router-link>
       </transition>
     </div>
 
@@ -71,6 +73,9 @@ export default {
         this.boxWidth += this.$refs.item[i].getBoundingClientRect().width;
       }
     },
+    slugify(title, item) {
+      return `/${item.primary.type.toLowerCase()}/${title.toLowerCase().split(" ").join("-")}`;
+    }
   },
   mounted() {
 
@@ -163,5 +168,19 @@ img {
   font-family: Helvetica;
   font-size: 40px;
   text-transform: uppercase;
+}
+a {
+  color: white;
+  text-decoration: none;
+  &:hover {
+    .img2 {
+      transform: scale(1.1);
+      transition: transform .5s ease;
+    }
+  }
+}
+.img2 {
+  transform: scale(1);
+  transition: transform .5s ease;
 }
 </style>

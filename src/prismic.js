@@ -2,7 +2,7 @@ import pr from "prismic-javascript";
 import Vue from "vue";
 import smtp from "./smtp.js";
 Vue.prototype.$smtp = smtp;
-console.log(smtp);
+// console.log(smtp);
 
 export default new (class Prismic {
   prismic() {
@@ -12,12 +12,15 @@ export default new (class Prismic {
           return api.query("", { pageSize: 100 });
         })
         .then((res) => {
-          // console.log();
+          Vue.prototype.$maininfo = res.results.filter(
+            (i) => i.type === "main_page"
+          )[0];
+
           Vue.prototype.$slices = res.results
             .filter((i) => i.type === "work")
             .sort((a, b) => a.data.order - b.data.order);
           var menu = fetchSlice("menu", res.results);
-          Vue.prototype.$work = fetchSlice("work", res.results);
+          Vue.prototype.$work = res.results.filter((i) => i.type === "work");
           Vue.prototype.$cats = [];
           menu.forEach((i) => {
             Vue.prototype.$cats.push({

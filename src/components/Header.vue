@@ -1,6 +1,6 @@
 <template>
   <div id="header" :class="`${showDropdown ? `` : `blend`}`">
-    <Reb class="reb" />
+    <a href="/"><Reb class="reb" /></a>
     <div class="hamburger" @click.prevent="showDropdown = !showDropdown"><div v-html="showDropdown ? `X` : `☰`"></div></div>
     <transition name="menu">
       <div :class="`header-inner ${showDropdown ? `show` : `hide`}`">

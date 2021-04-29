@@ -10,7 +10,7 @@
             </div>
             <div class="blurb">
                 <p>
-                    Rebecca is an Illustration Artist and Designer from Toronto.
+                    {{$text($maininfo.data.my_description)}}
                 </p>
             </div>
     </div> 
