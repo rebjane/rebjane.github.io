@@ -3,14 +3,14 @@
     <div v-if="data.body" class="wrap" ref="work">
     <h2 class="mobileheader">{{$text(data.id)}}</h2>
       <transition v-for="(item, i) in data.body" :key="i">
-        <router-link :to="slugify($text(item.primary.title), item)">
+        <a :href="slugify($text(item.primary.title), item)">
         <div class="item" ref="item" :key="wh" :style="imageSize(item)">
           <div class="item-inner" ref="item_inner" :style="parallax">
           <img class="img2" ref="img" :key="wh" :style="imageSize(item)"/>
           <p class="title" v-if="item.primary.title.length">{{$text(item.primary.title)}}</p>
         </div>
        </div>
-        </router-link>
+        </a>
       </transition>
     </div>
 
