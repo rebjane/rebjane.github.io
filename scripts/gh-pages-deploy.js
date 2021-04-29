@@ -14,8 +14,8 @@ const fs = require("fs");
     await execa("git", ["--work-tree", folderName, "commit", "-m", "main"]);
     console.log("Pushing to main...");
     await execa("git", ["push", "origin", "HEAD:main", "--force"]);
-    await execa("rm", ["-r", folderName]);
-    await execa("git", ["checkout", "-f", "main"]);
+    // await execa("rm", ["-r", folderName]);
+    // await execa("git", ["checkout", "-f", "main"]);
     // await execa("git", ["branch", "-D", "main"]);
     console.log("Successfully deployed, check your settings");
   } catch (e) {
