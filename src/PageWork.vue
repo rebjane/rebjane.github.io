@@ -66,6 +66,7 @@ export default {
     }
   },
   mounted() {
+    window.scrollTo(0, 0);
     window.addEventListener("resize", (e) => {
       this.winresize = e;
       this.getDevice();
@@ -83,7 +84,7 @@ export default {
 img {
   @media screen and (min-width: $mobileup) {
     float: right;
-    width: 55%;
+    width: 50%;
   }
   @media screen and (max-width: $mobiledown) {
     width: 100%;
@@ -93,7 +94,7 @@ img {
   text-align: left;
 }
 .inner {
-    padding: 0 10%;
+    // padding: 0 10%;
 }
 
 .info {
@@ -145,7 +146,9 @@ img {
     }
 }
 .desc {
-  font-size: 20px;
+  font-size: 30px;
+  width: 50%;
+  padding: 1em 1em 1em 2em;
   @media screen and (max-width: $mobiledown) {
     margin-top: 20px;
   }

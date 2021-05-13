@@ -17,9 +17,14 @@ export default {
 
 <style lang="scss">
 @import "./main.scss";
+body {
+  background-color: black;
+
+}
 .bg {
   background-image: url("./assets/BG_2021.gif");
   // background: black;
+  background-color: black;
   // transition: background-color 1s ease;
   background-size: cover;
   background-position: top;
@@ -34,16 +39,12 @@ export default {
   pointer-events: none;
 }
 #app {
-  
+  background-color: black;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
-  
-  // margin: 0 5%;
-  // margin-left: 5%;
   overflow-x: hidden;
-  // background-color: white;
   z-index: -1;
   h1 {
     font-family: Helvetica;
