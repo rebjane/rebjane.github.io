@@ -74,7 +74,6 @@ export default {
       }
     },
     slugify(title, item) {
-      console.log(item);
       return `/${item.primary.type.toLowerCase()}/${title.toLowerCase().split(" ").join("-")}`;
     }
   },

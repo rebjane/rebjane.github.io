@@ -3,26 +3,40 @@
       <MENU :workTitle="``" :winresize="winresize"/>
       <div class="inner">
         <transition v-for="(item, i) in data" :key="i">
-          <div>
-            <div class="info">
-              <h1>{{$text(item.primary.title)}}</h1>
-            <div class="infomini">
-              <h2>Medium</h2>
-              <p>{{item.primary.medium}}</p>
-            </div>
-            <div class="infomini">
-              <h2>Developed In</h2>
-              <p>{{item.primary.developed_in}}</p>
-            </div>
+            <div>
+              <div class="info">
+                <h1>{{$text(item.primary.title)}}</h1>
+              <div class="infomini">
+                <h2>Medium</h2>
+                <p>{{item.primary.medium}}</p>
+              </div>
+              <div class="infomini">
+                <h2>Developed In</h2>
+                <p>{{item.primary.developed_in}}</p>
+              </div>
 
+              </div>
+              <div class="separator"/>
+              <p class="desc">{{$text(item.primary.description)}}</p>
+              <img :src="item.primary.image.url"/>
             </div>
-            <div class="separator"/>
-            <img :src="item.primary.image.url"/>
+          </transition>
+          <transition v-if="data">
+            <transition v-for="(item, i) in data[0].items" :key="i">
+              <div :class="`${item.alignment.toLowerCase()} section`">
+                <div class="media">
+                  <video controls v-if="item.video.url">
+                    <source :src="item.video.url"/>
+                  </video>
+                  <img v-if="item.image.url" :src="item.image.url"/>
+                </div>
+                <div class="descwrapper">
+                  <p v-if="item.text.length" class="desc">{{$text(item.text)}}</p>
+              </div>
+              </div>
+              </transition>
+          </transition>
 
-            <p class="desc">{{$text(item.primary.description)}}</p>
-            
-          </div>
-        </transition>
       </div>
   </div>
 </template>
@@ -83,8 +97,9 @@ export default {
 
 img {
   @media screen and (min-width: $mobileup) {
-    float: right;
     width: 50%;
+    vertical-align: middle;
+    display: inline-block;
   }
   @media screen and (max-width: $mobiledown) {
     width: 100%;
@@ -99,7 +114,7 @@ img {
 
 .info {
   // display: inline-block;
-  width: 100%;
+  width: 90%;
   vertical-align: top;
   padding-left: 5%;
     h2 {
@@ -147,10 +162,16 @@ img {
 }
 .desc {
   font-size: 30px;
-  width: 50%;
-  padding: 1em 1em 1em 2em;
   @media screen and (max-width: $mobiledown) {
     margin-top: 20px;
+    padding: 0 1em;
+  }
+  @media screen and (min-width: $mobileup) {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    padding-left: 2em;
+    width: calc(50% - 2em);
   }
 }
 .separator {
@@ -160,5 +181,59 @@ img {
   @media screen and (max-width: $mobiledown) {
     margin: 50px 0;
   }
+}
+  video {
+    width: 100%;
+    text-align: center;
+  }
+.section {
+  margin: 5em 0;
+  vertical-align: middle;
+}
+.left, .right {
+  position: relative;
+  
+  @media screen and (min-width: $mobileup) {
+    display: flex;
+  }
+
+  .desc {
+    margin: 0;
+    width: 100%;
+    height: auto;
+    @media screen and (min-width: $mobileup) {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .descwrapper {
+    height: auto;
+    position: relative;
+    @media screen and (min-width: $mobileup) {
+      width: 50%;
+    }
+    width: 100%;
+
+  }
+}
+.right {
+  flex-direction: row-reverse;
+}
+.center {
+  text-align: center;
+  .desc {
+    padding: 0;
+    text-align: left;
+  }
+}
+.media {
+  img {
+    width: 100%;
+  }
+  width: 100%;
+    @media screen and (min-width: $mobileup) {
+      width: 50%;
+    }
 }
 </style>
