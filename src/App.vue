@@ -12,6 +12,12 @@ export default {
   name: 'App',
   components: {
   },
+  watch: {
+  },
+  data() {
+    return {
+    }
+  }
 }
 </script>
 

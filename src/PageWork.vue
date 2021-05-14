@@ -69,7 +69,7 @@ export default {
       this.isMobile = this.mobile.map(i => device.includes(i)).indexOf(true) > -1 || window.innerWidth < 901;
     },
     getPageData() {
-      console.log(this.slug, this.type);
+      // console.log(this.slug, this.type);
       this.data = this.$work.filter(i => this.$text(i.data.id).toLowerCase() === this.type)[0].data.body;
       this.data = this.data.filter(i => this.$text(i.primary.title).split(" ").join("-").toLowerCase() === this.slug);
     },

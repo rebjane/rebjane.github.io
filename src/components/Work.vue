@@ -6,7 +6,16 @@
         <router-link :to="slugify($text(item.primary.title), item)">
         <div class="item" ref="item" :key="wh" :style="imageSize(item)">
           <div class="item-inner" ref="item_inner" :style="parallax">
-          <img class="img2" ref="img" :key="wh" :style="imageSize(item)"/>
+          <img 
+          @mouseover="item.primary.video.url ? ifVideoShowVideo(i, `play`) : null" 
+          @mouseout="item.primary.video.url ? ifVideoShowVideo(i, `pause`) : null" 
+          :class="`img2 ${item.primary.video.url ? `invisible` : ``}`" 
+          ref="img" 
+          :key="wh" 
+          :style="imageSize(item)"/>
+          <video ref="vid" v-if="item.primary.video.url">
+            <source :src="item.primary.video.url"/>
+            </video>
           <p class="title" v-if="item.primary.title.length">{{$text(item.primary.title)}}</p>
         </div>
        </div>
@@ -57,8 +66,13 @@ export default {
     }
   },
   methods: {
+    ifVideoShowVideo(idx, status) {
+      // console.log(idx);
+      if (status === "play")  this.$refs.vid[idx].play();
+      else this.$refs.vid[idx].pause();
+    },
     imageSize(item) {
-      return `width: ${((this.wh * .6) / (item.primary.image.dimensions.height)) * item.primary.image.dimensions.width}px`;
+      return item.primary.image.dimensions ? `width: ${((this.wh * .6) / (item.primary.image.dimensions.height)) * item.primary.image.dimensions.width}px` : `width: 400px;`;
     },
     blobify(url, i) {
       fetch(url).then(e => e.blob().then((blob) => {
@@ -78,6 +92,8 @@ export default {
     }
   },
   mounted() {
+// console.log("data", this.data.body[0].primary.image.dimensions);
+// console.log("data", this.data.body[0].primary.video);
 
     for (let i = 0; i < this.data.body.length; i++) {
       this.blobify(this.data.body[i].primary.image.url, i)
@@ -173,14 +189,23 @@ a {
   color: white;
   text-decoration: none;
   &:hover {
-    .img2 {
+    .img2, video {
       transform: scale(1.1);
       transition: transform .5s ease;
     }
   }
 }
-.img2 {
+.img2, video {
   transform: scale(1);
   transition: transform .5s ease;
+}
+video {
+  width: 100%;
+  position: absolute;
+  left: 0;
+z-index: -1;
+}
+.invisible {
+  opacity: 0;
 }
 </style>

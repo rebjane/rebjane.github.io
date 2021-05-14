@@ -61,7 +61,7 @@ export default {
           }
           return truePos;
         })();
-        console.log(this.active);
+        // console.log(this.active);
       }
     },
     // doHoriz: {
@@ -101,6 +101,10 @@ export default {
           }
         }
       }
+  },
+
+  beforeDestroy() {
+    this.removeScroll();
   },
   props: {
   },
@@ -161,6 +165,7 @@ export default {
         this.stopLimit = this.workInfo[this.active].stopLimit;
 
         this.boxWidth = this.workInfo[this.active].boxWidth;
+
         this.activeWork.style.width =  this.boxWidth;
         
           if ((this.isWithinTopLimit() || this.isWithinBottomLimit()) && (!this.isOutLeftLimit() && !this.isOutRightLimit())) {
