@@ -19,7 +19,7 @@
               <div class="separator"/>
               <p class="desc">{{$text(item.primary.description)}}</p>
               <img v-if="!item.primary.video.url" :src="item.primary.image.url"/>
-              <video controls v-if="item.primary.video.url">
+              <video controls v-else-if="item.primary.video.url">
                 <source :src="item.primary.video.url"/>
               </video>
               <div v-else class="empty"/>
