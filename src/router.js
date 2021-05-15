@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 // Initialize router
 const router = new VueRouter({
   base: "/",
-  mode: "history",
+  // mode: "history",// the hash works for slugging on prod, for now
   routes: [
     {
       path: "",
