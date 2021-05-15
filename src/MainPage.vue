@@ -211,9 +211,9 @@ export default {
     });
     this.getDevice();
 
-    // if (window.location.href.split('#')[1]) {
-    //   window.location.href = "/";
-    // }
+    if (window.location.href.split('#')[1]) {
+      window.location.href = "/";
+    }
     for (let i = 0; i < this.$slices.length; i++) {
       this.horizPos.push(0);
     }
