@@ -3,6 +3,8 @@
     <div class="view">
       <Name :pos="pos"/>
       <MENU :workTitle="workTitle" :winresize="winresize"/>
+        <Featured v-if="$featured.data.featured.length"/>
+
       <transition v-for="(item, i) in $slices" :key="i">
         <component :is="item.type.toUpperCase()" 
         :winresize="winresize"
@@ -42,6 +44,7 @@
 import MENU from './components/Header.vue'
 import WORK from './components/Work.vue'
 import Name from './components/Name.vue'
+import Featured from './components/Featured.vue'
 
 export default {
   name: 'App',
@@ -49,6 +52,7 @@ export default {
     MENU,
     WORK,
     Name,
+    Featured
   },
   watch: {
     pos: {

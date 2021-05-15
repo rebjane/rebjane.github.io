@@ -254,23 +254,18 @@ li {
     background: white;
     height: 0;
     transform: translateY(-100vh);
-    transition: transform .5s ease;
+    transition: height .75s ease, transform 4s ease;
   }
 }
 .show {
+  z-index: 14;
+
   @media screen and (max-width: $mobiledown) {
     background: white;
     transform: translateY(0vh);
-    transition: transform .5s ease;
+    transition: height .75s ease, transform .75s ease;
     height: 100vh;
   }
-}
-.menu-leave-active {
-    .hide {
-      @media screen and (max-width: $mobiledown) {
-        transition: height .5s ease .5s;
-      }
-    }
 }
 .reb {
   width: 50px;

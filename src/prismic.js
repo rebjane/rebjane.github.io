@@ -15,6 +15,9 @@ export default new (class Prismic {
           Vue.prototype.$maininfo = res.results.filter(
             (i) => i.type === "main_page"
           )[0];
+          Vue.prototype.$featured = res.results.filter(
+            (i) => i.type === "featured"
+          )[0];
 
           Vue.prototype.$slices = res.results
             .filter((i) => i.type === "work")
