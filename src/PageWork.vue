@@ -18,7 +18,11 @@
               </div>
               <div class="separator"/>
               <p class="desc">{{$text(item.primary.description)}}</p>
-              <img :src="item.primary.image.url"/>
+              <img v-if="!item.primary.video.url" :src="item.primary.image.url"/>
+              <video controls v-if="item.primary.video.url">
+                <source :src="item.primary.video.url"/>
+              </video>
+              <div v-else class="empty"/>
             </div>
           </transition>
           <transition v-if="data">
@@ -29,6 +33,7 @@
                     <source :src="item.video.url"/>
                   </video>
                   <img v-if="item.image.url" :src="item.image.url"/>
+                  
                 </div>
                 <div class="descwrapper">
                   <p v-if="item.text.length" class="desc">{{$text(item.text)}}</p>
@@ -235,5 +240,27 @@ img {
     @media screen and (min-width: $mobileup) {
       width: 50%;
     }
+}
+video, .empty {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+      @media screen and (min-width: $mobileup) {
+      width: 50%;
+    }
+}
+.empty {
+  background: grey;
+  height: 50vh;
+  position: relative;
+  &:after {
+    content: 'Nothing Here...';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-family: Helvetica;
+    font-size: 20px;
+  }
 }
 </style>
