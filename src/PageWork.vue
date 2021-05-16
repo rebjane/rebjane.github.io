@@ -6,15 +6,14 @@
             <div>
               <div class="info">
                 <h1>{{$text(item.primary.title)}}</h1>
-              <div class="infomini">
-                <h2>Medium</h2>
-                <p>{{item.primary.medium}}</p>
-              </div>
-              <div class="infomini">
-                <h2>Developed In</h2>
-                <p>{{item.primary.developed_in}}</p>
-              </div>
-
+                <div class="infomini">
+                  <h2>Medium</h2>
+                  <p>{{item.primary.medium}}</p>
+                </div>
+                <div class="infomini">
+                  <h2>Developed In</h2>
+                  <p>{{item.primary.developed_in}}</p>
+                </div>
               </div>
               <div class="separator"/>
               <p class="desc">{{$text(item.primary.description)}}</p>
@@ -33,7 +32,6 @@
                     <source :src="item.video.url"/>
                   </video>
                   <img v-if="item.image.url" :src="item.image.url"/>
-                  
                 </div>
                 <div class="descwrapper">
                   <p v-if="item.text.length" class="desc">{{$text(item.text)}}</p>

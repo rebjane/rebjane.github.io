@@ -1,6 +1,6 @@
 <template>
   <div id="mainpage" ref="mainpage">
-    <div class="view">
+    <div class="view" ref="view">
       <Name :pos="pos"/>
       <MENU :workTitle="workTitle" :winresize="winresize"/>
         <Featured v-if="$featured.data.featured.length"/>
@@ -57,7 +57,6 @@ export default {
   watch: {
     pos: {
       handler(e) {
-
         this.active = (() => {
           var truePos = this.workInfo.map(i => e < i.stopBottom).indexOf(true);
           if (truePos === -1) {
@@ -68,8 +67,12 @@ export default {
         // console.log(this.active);
       }
     },
-    // doHoriz: {
-    //   handler() {
+    doHoriz: {
+      handler(e) {
+        console.log(e, (this.active + 2) * 100);
+        if (e) this.$refs.view.style = `height: ${(this.active + 2) * 100}vh`;
+        else  this.$refs.view.style = `height: auto;`;
+       
     //     if (!this.doHoriz) {
     //       if (this.dir === "down" && this.active === this.$slices.length) {
     //         this.active = this.$slices.length - 1;
@@ -84,8 +87,8 @@ export default {
     //     }
     //     // console.log("doHoriz:", e, " dir:", this.dir, " active:", this.active)
         
-    //   } ,
-    // },
+      } ,
+    },
     // dir: {
     //   handler(e) {
     //   }

@@ -67,7 +67,6 @@ export default {
   },
   methods: {
     ifVideoShowVideo(idx, status) {
-      // console.log(idx);
       if (status === "play")  this.$refs.vid[idx].play();
       else this.$refs.vid[idx].pause();
     },
@@ -92,9 +91,6 @@ export default {
     }
   },
   mounted() {
-// console.log("data", this.data.body[0].primary.image.dimensions);
-// console.log("data", this.data.body[0].primary.video);
-
     for (let i = 0; i < this.data.body.length; i++) {
       this.blobify(this.data.body[i].primary.image.url, i)
     }
