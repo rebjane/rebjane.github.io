@@ -5,17 +5,23 @@
       <transition v-for="(item, i) in data.body" :key="i">
         <router-link :to="slugify($text(item.primary.title), item)">
         <div class="item" ref="item" :key="wh" :style="imageSize(item)">
-          <div class="item-inner" ref="item_inner" :style="parallax">
-          <img 
-          @mouseover="item.primary.video.url ? ifVideoShowVideo(i, `play`) : null" 
-          @mouseout="item.primary.video.url ? ifVideoShowVideo(i, `pause`) : null" 
-          :class="`img2 ${item.primary.video.url ? `invisible` : ``}`" 
-          ref="img" 
-          :key="wh" 
-          :style="imageSize(item)"/>
+          <div class="item-inner" ref="item_inner" >
+            <div class="img2wrap">
+              <div :style="parallax">
+              <img 
+              @mouseover="item.primary.video.url ? ifVideoShowVideo(i, `play`) : null" 
+              @mouseout="item.primary.video.url ? ifVideoShowVideo(i, `pause`) : null" 
+              :class="`img2 ${item.primary.video.url ? `invisible` : ``}`" 
+              ref="img" 
+              :key="wh" 
+              :style="imageSize(item)"/>
           <video :id="`${i}-vid`" v-if="item.primary.video.url">
             <source :src="item.primary.video.url"/>
             </video>
+          </div>
+
+          </div>
+
           <p class="title" v-if="item.primary.title.length">{{$text(item.primary.title)}}</p>
         </div>
        </div>
@@ -47,8 +53,8 @@ export default {
     },
     pos(e) {
       if (!this.isMobile){
-        var transform = (this.stopLimit - e) * 0.2;
-        this.parallax = `transform: translateY(${transform}px)`;
+        var transform = (this.stopLimit - e) * 0.5;
+        this.parallax = `transform: translateY(-${transform}px)`;
       }
     }
   },
@@ -129,12 +135,12 @@ export default {
     display: flex;
     align-items: stretch;
     flex-direction: row;
-    border-top: .25px solid white;
-    border-bottom: .25px solid white;
+    // border-top: .25px solid white;
+    // border-bottom: .25px solid white;
   }
-  .item {
-    border-right: .25px solid white;
-  }
+  // .item {
+  // border-right: .25px solid white;
+  // }
   img {
     max-height: 60vh;
   }
@@ -168,7 +174,10 @@ img {
   height: 100%;
   margin: auto;
   padding: 0 2em;
-  overflow: hidden;
+  // overflow: hidden;
+  // border: 1px solid black;
+
+
 }
 .title {
   margin-bottom: 0;
@@ -182,10 +191,11 @@ img {
   text-transform: uppercase;
 }
 a {
-  color: white;
+  color: black;
   text-decoration: none;
   &:hover {
     .img2, video {
+
       transform: scale(1.1);
       transition: transform .5s ease;
     }
@@ -194,6 +204,7 @@ a {
 .img2, video {
   transform: scale(1);
   transition: transform .5s ease;
+
 }
 video {
   width: 100%;
@@ -203,5 +214,11 @@ z-index: -1;
 }
 .invisible {
   opacity: 0;
+}
+.img2wrap {
+  overflow: hidden;
+    -webkit-box-shadow: 0px 0px 25px -3px rgba(0,0,0,0.35); 
+  box-shadow: 0px 0px 25px -3px rgba(0,0,0,0.35);
+  position: relative;
 }
 </style>

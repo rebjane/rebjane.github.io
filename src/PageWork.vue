@@ -27,7 +27,7 @@
           <div v-if="data">
             <transition-group v-for="(item, i) in data[0].items" :key="i">
               <div :class="`${item.alignment.toLowerCase()} section`" :key="`${i}-section`">
-                <div class="media">
+                <div :class="`${!item.text.length ? `floating` : ``} media`">
                   <video controls v-if="item.video.url">
                     <source :src="item.video.url"/>
                   </video>
@@ -231,6 +231,7 @@ img {
   }
 }
 .media {
+  margin: auto;
   img {
     width: 100%;
   }
@@ -247,6 +248,16 @@ video, .empty {
       width: 50%;
     }
 }
+
+// @media screen and (min-width: $mobileup) {
+//   .right .floating {
+//     margin-right: 20vw;
+//   }
+//     .left .floating {
+//     margin-left: 20vw;
+//   }
+// }
+
 .empty {
   background: grey;
   height: 50vh;

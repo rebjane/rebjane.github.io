@@ -2,8 +2,8 @@
   <div id="mainpage" ref="mainpage">
     <div class="view" ref="view">
       <Name :pos="pos"/>
-      <MENU :workTitle="workTitle" :winresize="winresize"/>
-        <Featured v-if="$featured.data.featured.length"/>
+      <MENU :workTitle="workTitle" :winresize="winresize" :pos="doHoriz ? {pos: currHorizScrollPos, width: workInfo[active] ? workInfo[active].boxWidth: 0} : null"/>
+      <Featured v-if="$featured.data.featured.length"/>
 
       <transition v-for="(item, i) in $slices" :key="i">
         <component :is="item.type.toUpperCase()" 
@@ -64,29 +64,20 @@ export default {
           }
           return truePos;
         })();
-        // console.log(this.active);
       }
     },
     doHoriz: {
       handler(e) {
-        // console.log(e, (this.active + 2) * 100);
-        if (e) this.$refs.view.style = `height: ${(this.active + 2) * 100}vh`;
-        else  this.$refs.view.style = `height: auto;`;
-       
-    //     if (!this.doHoriz) {
-    //       if (this.dir === "down" && this.active === this.$slices.length) {
-    //         this.active = this.$slices.length - 1;
-    //         return;
-    //       }
-    //       if (this.dir === "down") {
-    //         this.active = Math.max(Math.min((this.active + 1), this.$slices.length - 1) , 0);
-    //       }
-    //       else if (this.dir === "up") {
-    //           this.active = Math.max(Math.min((this.active - 1), this.$slices.length - 1), 0);
-    //       }
-    //     }
-    //     // console.log("doHoriz:", e, " dir:", this.dir, " active:", this.active)
-        
+        if (e) {
+          // console.log(e);
+          this.$emit("bg", "white");
+          this.$refs.view.style = `height: ${(this.active + 2) * 100}vh`;
+        }
+        else {
+          // console.log(e);
+          this.$emit("bg", "black");
+          this.$refs.view.style = `height: auto;`;
+        }
       } ,
     },
     // dir: {
@@ -186,6 +177,7 @@ export default {
             window.scrollTo({top: this.stopLimit, behavior: 'smooth'});
             this.horizPos[this.active] = Math.max((this.horizPos[this.active] + e.deltaY), 0);
             this.activeWork.children[0].style = `transform: translateX(-${this.horizPos[this.active]}px)`;
+            this.currHorizScrollPos = this.horizPos[this.active];
           } else {
             this.workTitle = "";
           }
@@ -207,7 +199,8 @@ export default {
       pos: null,
       winresize: null,
       mouse: null,
-      dir: null
+      dir: null,
+      currHorizScrollPos: 0
     }
   },
 

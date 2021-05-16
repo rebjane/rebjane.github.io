@@ -5,8 +5,11 @@
     <transition name="menu">
       <div :class="`header-inner ${showDropdown ? `show` : `hide`}`">
         <div class="title">
-          <!-- <h1 ref="title">THE REB<span class="superscript">J</span></h1> -->
-          <div class="worktitle"><h2>{{workTitle}}</h2></div>
+          <div class="worktitle">
+            <transition appear name="header">
+             <h2 :key="workTitle">{{workTitle}}</h2>
+            </transition>
+            </div>
         </div>
       <div class="nav">
           <ul ref="navlist">
@@ -17,6 +20,10 @@
             <p class="time" v-if="time"> {{time}}</p>
             <p class="date" v-if="date"> {{date}}</p>
           </div>
+          <div class="progress" v-if="workTitle">
+            <div class="line"/>
+            <div class="bar" :style="`width: ${barWidth}px`"/>
+            </div>
       </div>
     </transition>
   </div>
@@ -32,12 +39,20 @@ export default {
       type: String,
       default: "d"
     },
+    pos: Object,
     winresize: Event
   },
   components: {
     Reb
   },
   watch: {
+    pos: {
+      handler(e) {
+        if (e) {
+          this.barWidth = Math.min(400, (((e.pos + window.innerWidth / 2) / e.width) * 400));
+        }
+      },
+    },
     winresize: {
       handler() {
         this.showDropdown = false;
@@ -60,7 +75,8 @@ export default {
       seconds: 0,
       isMobile: null,
       showDropdown: false,
-      listStyle: null
+      listStyle: null,
+      barWidth: 0
     }
   },
   methods: {
@@ -157,15 +173,33 @@ ul {
   mix-blend-mode: difference;
 }
 .worktitle {
-  top: 50%;
+  top: 0%;
+  margin-top: 10px;
+  left: 10%;
+  overflow: hidden;
+  // bottom: 0;
+  // left: 50%;
+  // transform: translateX(-50%);
   position: fixed;
-  transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  // transform: translateX(-50%) translateY(-50%) rotate(-90deg);
   font-family: helvetica;
+  // font-family: Times;
   font-weight: bold;
   text-transform: uppercase;
+  z-index: -10;
   h2 {
     margin: 0;
-    font-size: 60px;
+    font-size: 80px;
+    transform: translateY(0%);
+    transition: transform .25s ease;
+  }
+  .header-enter-to, .header-enter-active  {
+    transition: transform .25s ease;
+    transform: translateY(100%);
+  }
+  .header-leave-to, .header-leave-active  {
+    transition: transform .25s ease;
+    transform: translateY(-100%);
   }
 }
 li {
@@ -292,6 +326,23 @@ li {
   }
   @media screen and (min-width: $mobileup) {
     display: none;
+  }
+}
+.progress {
+  position: fixed;
+  bottom: 0;
+  height: 30px;
+  left: 50vw;
+  transform: translateX(-50%);
+  .line {
+    border-bottom: 1px solid white;
+    width: 400px;
+  }
+  .bar {
+    height: 10px;
+    width: 100px;
+    background: white;
+    margin-top: -5px;
   }
 }
 </style>

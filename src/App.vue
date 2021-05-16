@@ -1,7 +1,8 @@
 <template>
-  <div id="app" ref="app">
-    <router-view/>
-      <div class="bg"/>
+  <div id="app" ref="app" >
+    <router-view @bg="handleBGChange" />
+      <div class="bg" :style="`background-color: ${bg}`"/>
+      <div class="bgimg"/>
   </div>
 
 </template>
@@ -13,9 +14,21 @@ export default {
   components: {
   },
   watch: {
+    $route: {
+      handler() {
+        this.bg = "black";
+      }
+    }
   },
   data() {
     return {
+      bg: "black"
+    }
+  },
+  methods: {
+    handleBGChange(e) {
+      this.bg = e;
+      // console.log(e);
     }
   }
 }
@@ -27,11 +40,8 @@ body {
   background-color: black;
 
 }
-.bg {
+.bgimg {
   background-image: url("./assets/BG_2021.gif");
-  // background: black;
-  background-color: black;
-  // transition: background-color 1s ease;
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
@@ -42,10 +52,28 @@ body {
   height: 100%;
   z-index: 10;
   mix-blend-mode: difference;
+  opacity: .5;
   pointer-events: none;
+
+}
+.bg {
+  // background: black;
+  transition: background-color .25s ease;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  // z-index: 10;
+  z-index: -1;
+  // opacity: .5;
+  pointer-events: none;
+
 }
 #app {
-  background-color: black;
+  // background-color: black;
+  // transition: background-color .25s ease;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
