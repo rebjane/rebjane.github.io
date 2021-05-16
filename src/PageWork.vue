@@ -24,9 +24,9 @@
               <div v-else class="empty"/>
             </div>
           </transition>
-          <transition v-if="data">
-            <transition v-for="(item, i) in data[0].items" :key="i">
-              <div :class="`${item.alignment.toLowerCase()} section`">
+          <div v-if="data">
+            <transition-group v-for="(item, i) in data[0].items" :key="i">
+              <div :class="`${item.alignment.toLowerCase()} section`" :key="`${i}-section`">
                 <div class="media">
                   <video controls v-if="item.video.url">
                     <source :src="item.video.url"/>
@@ -37,8 +37,8 @@
                   <p v-if="item.text.length" class="desc">{{$text(item.text)}}</p>
               </div>
               </div>
-              </transition>
-          </transition>
+              </transition-group>
+          </div>
 
       </div>
   </div>

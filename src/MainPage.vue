@@ -69,7 +69,7 @@ export default {
     },
     doHoriz: {
       handler(e) {
-        console.log(e, (this.active + 2) * 100);
+        // console.log(e, (this.active + 2) * 100);
         if (e) this.$refs.view.style = `height: ${(this.active + 2) * 100}vh`;
         else  this.$refs.view.style = `height: auto;`;
        

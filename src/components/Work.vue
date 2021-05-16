@@ -13,7 +13,7 @@
           ref="img" 
           :key="wh" 
           :style="imageSize(item)"/>
-          <video ref="vid" v-if="item.primary.video.url">
+          <video :id="`${i}-vid`" v-if="item.primary.video.url">
             <source :src="item.primary.video.url"/>
             </video>
           <p class="title" v-if="item.primary.title.length">{{$text(item.primary.title)}}</p>
@@ -62,13 +62,13 @@ export default {
      active: 0,
      blob: [],
      wh: window.innerHeight,
-     parallax: ``
+     parallax: ``,
     }
   },
   methods: {
     ifVideoShowVideo(idx, status) {
-      if (status === "play")  this.$refs.vid[idx].play();
-      else this.$refs.vid[idx].pause();
+      if (status === "play")  document.getElementById(`${idx}-vid`).play();
+      else document.getElementById(`${idx}-vid`).pause();
     },
     imageSize(item) {
       return item.primary.image.dimensions ? `width: ${((this.wh * .6) / (item.primary.image.dimensions.height)) * item.primary.image.dimensions.width}px` : `width: 400px;`;
