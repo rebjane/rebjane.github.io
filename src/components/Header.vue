@@ -85,7 +85,7 @@ export default {
       for (let i = 0; i  < this.nav.length; i++) {
         // console.log(this.nav[i].open);
         if (this.nav[i].icon.url) {
-          icon = `<img style="width: 30px; vertical-align: middle;" src="${this.nav[i].icon.url}"/>`;
+          icon = `<img style="width: 20px; vertical-align: middle;" src="${this.nav[i].icon.url}"/>`;
         }
        this.$refs.navlist.innerHTML += `<li style="${this.listStyle};"><a target="${this.nav[i].open}" style="text-decoration: none; color: black;" href="${this.nav[i].link}">${icon}${this.navify(this.nav[i].text)}</a></li>`;
       }
@@ -189,9 +189,10 @@ ul {
   z-index: -10;
   h2 {
     margin: 0;
-    font-size: 80px;
+    font-size: 40px;
     transform: translateY(0%);
     transition: transform .25s ease;
+    padding-top: 10px;
   }
   .header-enter-to, .header-enter-active  {
     transition: transform .25s ease;
@@ -225,7 +226,6 @@ li {
   font-family: Helvetica;
   right: 0;
   mix-blend-mode: difference;
-  padding: 30px;
   @media screen and (max-width: $mobiledown) {
     top: 50%;
     transform: translateY(-50%);
@@ -302,7 +302,7 @@ li {
   }
 }
 .reb {
-  width: 50px;
+  width: 40px;
   mix-blend-mode: difference;
   position: fixed;  
   padding: 1em;

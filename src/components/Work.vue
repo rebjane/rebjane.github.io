@@ -9,8 +9,8 @@
             <div class="img2wrap">
               <div :style="parallax">
               <img 
-              @mouseover="item.primary.video.url ? ifVideoShowVideo(i, `play`) : null" 
-              @mouseout="item.primary.video.url ? ifVideoShowVideo(i, `pause`) : null" 
+              @mouseover="[item.primary.video.url ? [ifVideoShowVideo(i, `play`), hideImage(i)] : null]" 
+              @mouseout="item.primary.video.url ? [ifVideoShowVideo(i, `pause`),showImage(i) ] : null" 
               :class="`img2 ${item.primary.video.url ? `invisible` : ``}`" 
               ref="img" 
               :key="wh" 
@@ -72,6 +72,14 @@ export default {
     }
   },
   methods: {
+    hideImage(i) {
+      // console.log("ddd");
+      this.$refs.img[i].style = "opacity: 0";
+    },
+    showImage(i) {
+      // console.log("ddd");
+      this.$refs.img[i].style = "opacity: 1";
+    },
     ifVideoShowVideo(idx, status) {
       if (status === "play")  document.getElementById(`${idx}-vid`).play();
       else document.getElementById(`${idx}-vid`).pause();
@@ -173,7 +181,7 @@ img {
 .item {
   height: 100%;
   margin: auto;
-  padding: 0 2em;
+  // padding: 0 2em;
   // overflow: hidden;
   // border: 1px solid black;
 
@@ -197,24 +205,24 @@ a {
     .img2, video {
 
       transform: scale(1.1);
-      transition: transform .5s ease;
+      transition: transform .5s ease, opacity .5s ease;
     }
   }
 }
 .img2, video {
   transform: scale(1);
-  transition: transform .5s ease;
+  transition: transform .5s ease, opacity .5s ease;
 
 }
 video {
   width: 100%;
   position: absolute;
   left: 0;
-z-index: -1;
+  z-index: -1;
 }
-.invisible {
-  opacity: 0;
-}
+// .invisible {
+//   opacity: 0;
+// }
 .img2wrap {
   overflow: hidden;
     -webkit-box-shadow: 0px 0px 25px -3px rgba(0,0,0,0.35); 

@@ -41,7 +41,7 @@ body {
 
 }
 .bgimg {
-  background-image: url("./assets/BG_2021.gif");
+  // background-image: url("./assets/BG_2021.gif");
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
