@@ -38,13 +38,15 @@ export default {
 
 img {
   @media screen and (max-width: $mobiledown) {
-      width: calc(80% - 20px);
+      width: 50%;
+      padding: 0;
     }
     @media screen and (min-width: $mobileup) {
-      max-width: calc(25vw - 20px);
+      max-width: calc(25vw - 20px);  
+      padding: 10px;
+      max-height: 100px;
     }
-  padding: 10px;
-  max-height: 100px;
+
 }
 h2 {
   font-size: 14px;
