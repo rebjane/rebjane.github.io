@@ -3,8 +3,6 @@
     <div class="view" ref="view">
       <Name :pos="pos"/>
       <MENU :workTitle="workTitle" :winresize="winresize" :pos="doHoriz ? {pos: currHorizScrollPos, width: workInfo[active] ? workInfo[active].boxWidth: 0} : null"/>
-      <Featured v-if="$featured.data.featured.length"/>
-
       <transition v-for="(item, i) in $slices" :key="i">
         <component :is="item.type.toUpperCase()" 
         :winresize="winresize"
@@ -17,6 +15,8 @@
         :class="`${doHoriz ? `active` : ``}`"
         @work="handleWorkInfo"/>
       </transition>
+      <Featured v-if="$featured.data.featured.length"/>
+
       <div id="footer">
         <div class="footer-wrap">
           <form action="https://formspree.io/f/xjvjkyrv" method="POST">

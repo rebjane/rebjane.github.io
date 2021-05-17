@@ -1,6 +1,6 @@
 <template>
   <div id="featured">
-    <h2>Work Done For</h2>
+    <h2>Worked With</h2>
     <div class="feature-box">
     <div v-for="(item, i) in $featured.data.featured" :key="i" class="feature">
       <img :src="item.image.url"/>
@@ -44,15 +44,17 @@ img {
       max-width: calc(25vw - 20px);
     }
   padding: 10px;
+  max-height: 100px;
 }
 h2 {
-  font-size: 30px;
+  font-size: 14px;
+  font-family: Times;
+  font-weight: 100;
 }
 .feature-box {
   // filter: grayscale(100%);
   border-top: 1px solid white;
   border-bottom: 1px solid white;
-  padding: 20px 0;
   @media screen and (min-width: $mobileup) {
     display: flex;
     .feature:first-child {
