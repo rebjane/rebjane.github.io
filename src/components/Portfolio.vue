@@ -28,7 +28,7 @@ import Blob from "../blobify.js";
 export default {
   name: "Portfolio",
   props: {
-    winresize: Event,
+    winresize: Object,
   },
   watch: {
     winresize() {},

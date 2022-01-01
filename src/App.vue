@@ -12,10 +12,12 @@ import Intro from "./components/Intro.vue";
 import Portfolio from "./components/Portfolio.vue";
 export default {
   name: "App",
-  props: {},
+  props: {
+    winresize: Object,
+  },
   data() {
     return {
-      winresize: null,
+      // winresize: null,
     };
   },
   computed: {},
@@ -26,9 +28,9 @@ export default {
   },
   methods: {},
   mounted() {
-    window.addEventListener("resize", (e) => {
-      this.winresize = e;
-    });
+    // window.addEventListener("resize", (e) => {
+    //   this.winresize = e;
+    // });
   },
 };
 </script>

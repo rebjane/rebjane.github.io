@@ -18,7 +18,7 @@
 export default {
   name: "Nav",
   props: {
-    winresize: Event,
+    winresize: Object,
   },
   data() {
     return {
@@ -96,6 +96,7 @@ ul {
   bottom: 0;
   margin-top: 30px;
   margin-bottom: 0;
+  width: 100%;
 }
 .navwrapper {
   position: fixed;

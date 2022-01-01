@@ -2,9 +2,9 @@
   <div id="index">
     <a href="/"><img class="logo" src="./assets/DesignByREBJ.svg" /></a>
     <div class="top" />
-    <Socials />
+    <Socials v-if="winresize" :winresize="winresize" />
     <Cursorr v-if="!isMobile" />
-    <router-view></router-view>
+    <router-view :winresize="winresize"></router-view>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       isMobile: false,
+      winresize: null,
     };
   },
   computed: {},
@@ -27,6 +28,16 @@ export default {
   },
   methods: {},
   mounted() {
+    this.winresize = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+    window.addEventListener("resize", (e) => {
+      this.winresize = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    });
     // console.log(navigator.userAgent);
     var mobileConditions = [
       navigator.userAgent.includes("iPhone"),
@@ -51,6 +62,7 @@ export default {
 }
 * {
   cursor: none;
+  scroll-behavior: smooth;
 }
 .logo {
   width: 100px;
