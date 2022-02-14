@@ -51,6 +51,9 @@
         </transition-group>
       </div>
     </div>
+    <div v-else>
+      <h1 class="redirecting">Redirecting...</h1>
+    </div>
   </div>
 </template>
 
@@ -78,15 +81,28 @@ export default {
     window.addEventListener("resize", (e) => {
       this.winresize = e;
     });
-    console.log(this.$portfolio_simplified);
-    this.data.push(
-      this.$portfolio_simplified.find((i) => {
-        return (
-          window.location.pathname === `/${this.$cms.textField(i.primary.url)}`
-        );
-      })
-    );
-    console.log(this.data);
+    // console.log(this.$portfolio_simplified);
+
+    this.$portfolio_simplified.find((i) => {
+      if (
+        window.location.pathname === `/${this.$cms.textField(i.primary.url)}`
+      ) {
+        this.data.push(i);
+      }
+    });
+    if (!this.data.length) {
+      var slug = window.location.pathname.split("/").join("");
+      var link = this.$url_shortener.filter((i) => {
+        if (this.$cms.textField(i.slug) === slug) {
+          return i;
+        }
+      });
+      if (link.length > 0) {
+        window.location.href = this.$cms.textField(link[0].link);
+      } else {
+        window.location.href = "/";
+      }
+    }
   },
 };
 </script>
@@ -279,5 +295,11 @@ video,
     font-family: Helvetica;
     font-size: 20px;
   }
+}
+.redirecting {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 </style>

@@ -14,6 +14,9 @@ export default new (class Prismic {
         })
         .then((res) => {
           return new Promise((resolve) => {
+            Vue.prototype.$url_shortener = res.results.filter(
+              (i) => i.type === "url_shortener"
+            )[0].data.url;
             Vue.prototype.$portfolio = [];
             Vue.prototype.$portfolio_simplified = [];
             var portfolioRes = res.results.filter((i) => i.type === "work");

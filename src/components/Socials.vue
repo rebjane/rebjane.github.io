@@ -69,7 +69,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.winresize);
+    // console.log(this.winresize);
   },
 };
 </script>
