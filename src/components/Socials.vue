@@ -5,10 +5,10 @@
       <transition v-for="(item, i) in $socials.items" :key="i">
         <div class="socialiconouter heart">
           <a :href="$cms.textField(item.link)" target="_blank">
-            <img
-              class="socialicon heart"
+            <div
+              class="social-iconn heart"
               v-if="item.icon.url"
-              :src="item.icon.url"
+              :style="`background-image: url(${item.icon.url})`"
             />
           </a>
         </div>
@@ -24,10 +24,10 @@
           <transition-group v-for="(item, i) in $socials.items" :key="i">
             <div :key="`social${i}`" class="socialiconouter heart">
               <a :href="$cms.textField(item.link)" target="_blank">
-                <img
-                  class="socialicon heart"
+                <div
+                  class="social-iconn heart"
                   v-if="item.icon.url"
-                  :src="item.icon.url"
+                  :style="`background-image: url(${item.icon.url})`"
                 />
               </a>
             </div>
@@ -82,9 +82,13 @@ export default {
   right: 0;
   color: white;
 }
-.socialicon {
+.social-iconn {
   width: 30px;
+  height: 30px;
   display: block !important;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .socialiconouter {
   vertical-align: middle;
