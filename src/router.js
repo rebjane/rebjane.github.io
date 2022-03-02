@@ -15,6 +15,10 @@ const router = new VueRouter({
       component: () => import("./App.vue"),
     },
     {
+      path: "/bank",
+      component: () => import("./Bank.vue"),
+    },
+    {
       path: "/:slug",
       component: () => import("./AppProjectPage.vue"),
     },

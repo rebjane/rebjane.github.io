@@ -84,6 +84,7 @@ export default {
 }
 .socialicon {
   width: 30px;
+  display: block !important;
 }
 .socialiconouter {
   vertical-align: middle;

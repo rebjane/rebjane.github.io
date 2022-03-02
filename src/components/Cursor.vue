@@ -72,7 +72,7 @@ $size: 80px;
   width: 100%;
   height: 100%;
   position: absolute;
-  opacity: 1;
+  opacity: 0;
 }
 .heart {
   background-image: url("../assets/heart.png");
@@ -81,6 +81,6 @@ $size: 80px;
   width: 100%;
   height: 100%;
   position: absolute;
-  opacity: 1;
+  opacity: 0;
 }
 </style>
