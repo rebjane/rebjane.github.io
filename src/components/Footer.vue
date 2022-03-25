@@ -41,6 +41,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .footer {
+  h2 {
+    font-size: 24px;
+    margin-top: 0;
+  }
   padding: 200px 0 200px;
   color: white;
   background: #242424;
@@ -51,10 +55,6 @@ export default {
     rgba(51, 51, 51, 1) 79%,
     rgba(61, 61, 61, 1) 100%
   );
-  h2 {
-    font-size: 24px;
-    margin-top: 0;
-  }
 
   .footerlogo {
     display: inline-block;

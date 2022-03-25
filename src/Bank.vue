@@ -42,11 +42,7 @@ export default {
     Nav,
   },
   methods: {},
-  mounted() {
-    // window.addEventListener("resize", (e) => {
-    //   this.winresize = e;
-    // });
-  },
+  mounted() {},
 };
 </script>
 

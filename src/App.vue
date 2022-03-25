@@ -10,8 +10,8 @@
 <script>
 import Nav from "./components/Nav.vue";
 import Intro from "./components/Intro.vue";
-import Portfolio from "./components/Portfolio.vue";
 import Footerr from "./components/Footer.vue";
+import Portfolio from "./components/Portfolio.vue";
 export default {
   name: "App",
   props: {
