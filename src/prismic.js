@@ -20,7 +20,6 @@ export default new (class Prismic {
             Vue.prototype.$bank = res.results.filter(
               (i) => i.type === "bank"
             )[0].data;
-            console.log(Vue.prototype.$bank);
             Vue.prototype.$portfolio = [];
             Vue.prototype.$portfolio_simplified = [];
             var portfolioRes = res.results.filter((i) => i.type === "work");
@@ -48,6 +47,12 @@ export default new (class Prismic {
             Vue.prototype.$menu = res.results
               .filter((i) => i.type === "menu")[0]
               .data.body.filter((i) => i.slice_type === "menu")[0];
+
+            Vue.prototype.$footer = res.results.filter(
+              (i) => i.type === "footer"
+            )[0].data;
+
+            // console.log(Vue.prototype.$footer);
 
             resolved();
           });

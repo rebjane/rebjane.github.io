@@ -3,6 +3,7 @@
     <Intro />
     <Nav :winresize="winresize" />
     <Portfolio :winresize="winresize" />
+    <Footerr :winresize="winresize" />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Nav from "./components/Nav.vue";
 import Intro from "./components/Intro.vue";
 import Portfolio from "./components/Portfolio.vue";
+import Footerr from "./components/Footer.vue";
 export default {
   name: "App",
   props: {
@@ -25,6 +27,7 @@ export default {
     Nav,
     Portfolio,
     Intro,
+    Footerr,
   },
   methods: {},
   mounted() {
