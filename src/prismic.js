@@ -53,7 +53,7 @@ export default new (class Prismic {
             )[0].data;
 
             // console.log(Vue.prototype.$footer);
-
+            //
             resolved();
           });
 
